@@ -17,5 +17,8 @@
   },
   "scripts": {
     "deploy": "gh-pages-deploy -- \"automated: deploy to gh-pages\""
+  },
+  "gh-pages-deploy": {
+    "noprompt": true
   }
 }
