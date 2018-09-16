@@ -46,3 +46,27 @@ $.getJSON('https://openwhisk.ng.bluemix.net/api/v1/web/Disaster-Assist_dev/defau
     //Center the map on the average latitute and longitude
     map.setCenter(avgs);
 });
+
+
+//==== Cluster Markers ====
+var markers = [];
+function reloadMarkers() {
+    markers.forEach(function (marker) {
+        marker.setMap(null);
+    });
+    markers = [];
+
+    $.getJSON('https://openwhisk.ng.bluemix.net/api/v1/web/Disaster-Assist_dev/default/disaster-clustering.json', {}, function (res) {
+        res.clusters.forEach(cluster => {
+            markers.push(new google.maps.Marker({
+                position: {
+                    lat: cluster.location.latitude,
+                    lng: cluster.location.longitude
+                },
+                map: map,
+                title: 'Event'
+            }));
+        });
+    });
+}
+reloadMarkers();
