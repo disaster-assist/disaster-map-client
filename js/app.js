@@ -1,14 +1,40 @@
 // Default Google Map Options
-var myOptions = {
-    zoom: 15,
-    center: {
-        lat: 42.7284,
-        lng: -73.6918
+
+
+if (Object.is(localStorage.disasterMapOptions, undefined)) {
+    localStorage.disasterMapOptions = '{}'
+}
+
+disasterMapOptions = JSON.parse(localStorage.disasterMapOptions);
+
+function saveOptions() {
+    localStorage.disasterMapOptions = JSON.stringify(disasterMapOptions);
+}
+
+if (Object.entries(disasterMapOptions).length === 0) {
+    disasterMapOptions = {
+        zoom: 15,
+        center: {
+            lat: 42.7284,
+            lng: -73.6918
+        }
     }
-};
+    saveOptions()
+}
+
 
 // Create a map object using the Google Maps API
-var map = new google.maps.Map(document.getElementById("map-canvas"), myOptions);
+var map = new google.maps.Map(document.getElementById("map-canvas"), disasterMapOptions);
+
+map.addListener('center_changed', function() {
+    disasterMapOptions.center = map.getCenter();
+    saveOptions()
+});
+
+map.addListener('zoom_changed', function() {
+    disasterMapOptions.zoom = map.getZoom();
+    saveOptions()
+});
 
 // Create the Gmaps Heatmap Layer
 var heatmap = new HeatmapOverlay(map,
