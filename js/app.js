@@ -1,6 +1,6 @@
 // Default Google Map Options
 var myOptions = {
-    zoom: 7
+    zoom: 9
 };
 
 // Create a map object using the Google Maps API
@@ -24,19 +24,19 @@ var heatmap = new HeatmapOverlay(map,
 );
 
 //Make an asynchronous call to load data about the victims
-$.getJSON('mocks/victims.json', {}, function (data) {
+$.getJSON('https://openwhisk.ng.bluemix.net/api/v1/web/Disaster-Assist_dev/default/disaster-map-backend.json', {}, function (res) {
     //Set the dataset for the heatmap to the result of the call to the backend
     heatmap.setData({
         max: 8,
-        data: data
+        data: res.body
     });
 
     //Calculate the average latitude and longitude so that we can center the map
     // on an area that matters
-    var avgs = data.reduce(function (accumulator, datum) {
+    var avgs = res.body.reduce(function (accumulator, datum) {
         return {
-            lat: accumulator.lat + datum.lat / data.length,
-            lng: accumulator.lng + datum.lng / data.length
+            lat: accumulator.lat + datum.lat / res.body.length,
+            lng: accumulator.lng + datum.lng / res.body.length
         };
     }, {
         lat: 0,
