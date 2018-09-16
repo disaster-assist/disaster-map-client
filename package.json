@@ -13,12 +13,10 @@
     "jquery": "^3.3.1"
   },
   "devDependencies": {
-    "gh-pages-deploy": "^0.5.0"
+    "gh-pages": "^1.2.0"
   },
   "scripts": {
-    "deploy": "gh-pages-deploy -- \"automated: deploy to gh-pages\""
-  },
-  "gh-pages-deploy": {
-    "noprompt": true
+    "build": "sh build.sh",
+    "deploy": "yarn build && gh-pages deploy -d dist"
   }
 }
