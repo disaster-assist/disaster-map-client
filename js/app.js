@@ -1,6 +1,6 @@
 // Default Google Map Options
 var myOptions = {
-    zoom: 11,
+    zoom: 15,
     center: {
         lat: 42.7284,
         lng: -73.6918
