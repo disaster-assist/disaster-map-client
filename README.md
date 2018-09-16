@@ -5,6 +5,9 @@ Client application to view data collected by our SMS chat bot - a.k.a. the disas
 
 This repository was built for the 2018 IBM Call for Code hackathon.
 
+### Screenshot
+![Screenshot](screenshot/screenshot.png)
+
 ### Diagram
 ![Diagram](art/Diagram.png)
 
