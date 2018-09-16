@@ -1,6 +1,10 @@
 // Default Google Map Options
 var myOptions = {
-    zoom: 9
+    zoom: 11,
+    center: {
+        lat: 42.7284,
+        lng: -73.6918
+    }
 };
 
 // Create a map object using the Google Maps API
@@ -33,16 +37,40 @@ $.getJSON('https://openwhisk.ng.bluemix.net/api/v1/web/Disaster-Assist_dev/defau
 
     //Calculate the average latitude and longitude so that we can center the map
     // on an area that matters
-    var avgs = res.body.reduce(function (accumulator, datum) {
-        return {
-            lat: accumulator.lat + datum.lat / res.body.length,
-            lng: accumulator.lng + datum.lng / res.body.length
-        };
-    }, {
-        lat: 0,
-        lng: 0
-    });
+    // var avgs = res.body.reduce(function (accumulator, datum) {
+    //     return {
+    //         lat: accumulator.lat + datum.lat / res.body.length,
+    //         lng: accumulator.lng + datum.lng / res.body.length
+    //     };
+    // }, {
+    //     lat: 0,
+    //     lng: 0
+    // });
 
     //Center the map on the average latitute and longitude
-    map.setCenter(avgs);
+    // map.setCenter(avgs);
 });
+
+
+//==== Cluster Markers ====
+var markers = [];
+function reloadMarkers() {
+    markers.forEach(function (marker) {
+        marker.setMap(null);
+    });
+    markers = [];
+
+    $.getJSON('https://openwhisk.ng.bluemix.net/api/v1/web/Disaster-Assist_dev/default/disaster-clustering.json', {}, function (res) {
+        res.clusters.forEach(cluster => {
+            markers.push(new google.maps.Marker({
+                position: {
+                    lat: cluster.location.latitude,
+                    lng: cluster.location.longitude
+                },
+                map: map,
+                title: 'Event'
+            }));
+        });
+    });
+}
+reloadMarkers();
