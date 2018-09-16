@@ -24,7 +24,7 @@ var heatmap = new HeatmapOverlay(map,
 );
 
 //Make an asynchronous call to load data about the victims
-$.getJSON('__mocks/victims.json', {}, function (data) {
+$.getJSON('mocks/victims.json', {}, function (data) {
     //Set the dataset for the heatmap to the result of the call to the backend
     heatmap.setData({
         max: 8,
