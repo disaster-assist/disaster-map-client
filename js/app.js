@@ -10,10 +10,10 @@ var map = new google.maps.Map(document.getElementById("map-canvas"), myOptions);
 var heatmap = new HeatmapOverlay(map,
     {
         // radius should be small ONLY if scaleRadius is true (or small radius is intended)
-        radius: 0.1,
+        radius: 80,
         maxOpacity: 1,
         // scales the radius based on map zoom
-        scaleRadius: true,
+        scaleRadius: false,
         // if set to false the heatmap uses the global maximum for colorization
         // if activated: uses the data maximum within the current map boundaries
         //   (there will always be a red spot with useLocalExtremas true)
