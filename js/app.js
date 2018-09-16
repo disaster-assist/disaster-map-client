@@ -1,6 +1,6 @@
 // Default Google Map Options
 var myOptions = {
-    zoom: 11,
+    zoom: 15,
     center: {
         lat: 42.7284,
         lng: -73.6918
@@ -13,7 +13,7 @@ var map = new google.maps.Map(document.getElementById("map-canvas"), myOptions);
 // Create the Gmaps Heatmap Layer
 var heatmap = new HeatmapOverlay(map,
     {
-        // radius should be small ONLY if scaleRadius is true (or small radius is intended)
+        // radius should be small ONLY if scaleRadius is true (or small radius iyars intended)
         radius: 80,
         maxOpacity: 1,
         // scales the radius based on map zoom
